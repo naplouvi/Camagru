@@ -120,7 +120,8 @@ class Profile extends Controller
             }if ($data['new_password'] !== $data['password_confirm']) {
                 $data['error'] .= "Passwords don't match. ";
                 $pass_error++;
-            }if ($pass_error == 0) {
+				}if ($pass_error == 0) {
+				$hash = hash('whirlpool', $data['new_password']);
                 $this->UserModel->update_user_key($user['id'], 'password', $hash);
                 $this->UserModel->login($data['pseudo'], $data['new_password']);
             } else {
